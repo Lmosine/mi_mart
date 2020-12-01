@@ -1,10 +1,10 @@
 <template>
-  <div>orderConfirm</div>
+  <div>OrderHeader</div>
 </template>
 
 <script>
 export default {
-  name: 'orderConfirm',
+  name: 'OrderHeader',
   components: {},
   mixins: [],
   props: {},
