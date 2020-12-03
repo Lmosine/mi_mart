@@ -9,9 +9,13 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:;">登录</a>
-          <a href="javascript:;">注册</a>
-          <a class="my-cart" href="javascript:;"><span class="icon-cart"></span>购物车</a>
+          <a href="javascript:;" v-if="username">{{ username }}</a>
+          <a href="javascript:;" v-if="!username" @click="goToLogin()">登录</a>
+          <a href="javascript:;" v-if="username">我的订单</a>
+          <a href="javascript:;" v-if="!username">注册</a>
+          <a class="my-cart" href="javascript:;" @click="goToCart()"
+            ><span class="icon-cart"></span>购物车</a
+          >
         </div>
       </div>
     </div>
@@ -25,46 +29,11 @@
             <span>小米手机</span>
             <div class="children">
               <ul>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img"><img /></div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img"><img /></div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img"><img /></div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img"><img /></div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img"><img /></div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
-                  </a>
-                </li>
-                <li class="product">
-                  <a href="" target="_blank">
-                    <div class="pro-img"><img /></div>
-                    <div class="pro-name">小米CC9</div>
-                    <div class="pro-price">1799元</div>
+                <li class="product" v-for="(item, index) in phoneList" :key="index">
+                  <a :href="'/#/product/' + item.id" target="_blank">
+                    <div class="pro-img"><img :src="item.mainImage" :alt="item.subtitle" /></div>
+                    <div class="pro-name">{{ item.name }}</div>
+                    <div class="pro-price">{{ item.price | currency }}</div>
                   </a>
                 </li>
               </ul>
@@ -72,11 +41,31 @@
           </div>
           <div class="item-menu">
             <span>RedMi</span>
-            <div class="children"></div>
+            <div class="children">
+              <ul>
+                <li class="product" v-for="(item, index) in redMiList" :key="index">
+                  <a href="" target="_blank">
+                    <div class="pro-img"><img :src="item.img" :alt="item.title" /></div>
+                    <div class="pro-name">{{ item.title }}</div>
+                    <div class="pro-price">{{ item.price | currency }}</div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
           <div class="item-menu">
             <span>电视</span>
-            <div class="children"></div>
+            <div class="children">
+              <ul>
+                <li class="product" v-for="(item, index) in tvList" :key="index">
+                  <a href="" target="_blank">
+                    <div class="pro-img"><img :src="item.img" :alt="item.title" /></div>
+                    <div class="pro-name">{{ item.title }}</div>
+                    <div class="pro-price">{{ item.price | currency }}</div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="header-search">
@@ -91,20 +80,63 @@
 </template>
 
 <script>
+import index from '../api/index'
 export default {
   name: 'NavHeader',
   components: {},
   mixins: [],
   props: {},
   data() {
-    return {}
+    return {
+      username: '',
+      phoneList: [],
+      redMiList: [
+        { title: 'Redmi Note 9 系列', price: 999.0, img: '/imgs/nav-img/nav-2-1.webp' },
+        { title: 'Redmi K30S 至尊纪念版', price: 2599.0, img: '/imgs/nav-img/nav-2-2.webp' },
+        { title: 'Redmi K30 至尊纪念版', price: 1999.0, img: '/imgs/nav-img/nav-2-3.webp' },
+        { title: 'Redmi 9A', price: 599.0, img: '/imgs/nav-img/nav-2-4.webp' },
+        { title: 'Redmi K30 系列', price: 1399.0, img: '/imgs/nav-img/nav-2-5.webp' },
+        { title: 'Redmi 10X', price: 999.0, img: '/imgs/nav-img/nav-2-6.webp' }
+      ],
+      tvList: [
+        { title: '小米壁画电视', price: 6999.0, img: '/imgs/nav-img/nav-3-1.jpg' },
+        { title: '小米全面屏电视E55A', price: 1999.0, img: '/imgs/nav-img/nav-3-2.jpg' },
+        { title: '小米电视4A 32英寸', price: 699.0, img: '/imgs/nav-img/nav-3-3.png' },
+        { title: '小米电视4A 55英寸', price: 1799.0, img: '/imgs/nav-img/nav-3-4.jpg' },
+        { title: '小米电视4A 65英寸', price: 2699.0, img: '/imgs/nav-img/nav-3-5.jpg' },
+        { title: '小米电视4K高清', price: 3699.0, img: '/imgs/nav-img/nav-3-6.png' }
+      ]
+    }
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    this.getProductList()
+  },
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    async getProductList() {
+      try {
+        const res = await index.getProductList()
+        this.phoneList = res
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    goToCart() {
+      this.$router.push('/cart')
+    },
+    goToLogin() {
+      this.$router.push('/login')
+    }
+  },
+  filters: {
+    currency(val) {
+      if (!val) return '0.00'
+      return val.toFixed(2) + '元'
+    }
+  }
 }
 </script>
 
@@ -192,7 +224,7 @@ export default {
             color: $colorA;
             .children {
               height: 220px;
-              display: block;
+              opacity: 1;
             }
           }
           .children {
@@ -200,10 +232,12 @@ export default {
             top: 112px;
             left: 0;
             height: 0;
-            display: none;
+            opacity: 0;
+            overflow: hidden;
             width: 1226px;
             border-top: 1px solid #e5e5e5;
             box-shadow: 0 7px 6px rgba(0, 0, 0, 0.11);
+            transition: height 0.5s;
             z-index: 10;
             .product {
               position: relative;

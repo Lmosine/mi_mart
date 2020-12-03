@@ -1,5 +1,4 @@
 import axios from 'axios'
-import env from '@/utils/env'
 
 // mock开关
 const mock = false
@@ -8,7 +7,7 @@ if (mock) {
 }
 
 const request = axios.create({
-  baseURL: env.baseURL,
+  baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000
 })
 
