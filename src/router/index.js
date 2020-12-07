@@ -19,6 +19,7 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      redirect: '/index',
       children: [
         { path: '/index', name: 'index', component: Index },
         { path: '/product/:id', name: 'product', component: Product },

@@ -31,7 +31,7 @@
               <ul>
                 <li class="product" v-for="(item, index) in phoneList" :key="index">
                   <a :href="'/#/product/' + item.id" target="_blank">
-                    <div class="pro-img"><img :src="item.mainImage" :alt="item.subtitle" /></div>
+                    <div class="pro-img"><img v-lazy="item.mainImage" :alt="item.subtitle" /></div>
                     <div class="pro-name">{{ item.name }}</div>
                     <div class="pro-price">{{ item.price | currency }}</div>
                   </a>
@@ -45,7 +45,7 @@
               <ul>
                 <li class="product" v-for="(item, index) in redMiList" :key="index">
                   <a href="" target="_blank">
-                    <div class="pro-img"><img :src="item.img" :alt="item.title" /></div>
+                    <div class="pro-img"><img v-lazy="item.img" :alt="item.title" /></div>
                     <div class="pro-name">{{ item.title }}</div>
                     <div class="pro-price">{{ item.price | currency }}</div>
                   </a>
@@ -59,7 +59,7 @@
               <ul>
                 <li class="product" v-for="(item, index) in tvList" :key="index">
                   <a href="" target="_blank">
-                    <div class="pro-img"><img :src="item.img" :alt="item.title" /></div>
+                    <div class="pro-img"><img v-lazy="item.img" :alt="item.title" /></div>
                     <div class="pro-name">{{ item.title }}</div>
                     <div class="pro-price">{{ item.price | currency }}</div>
                   </a>
@@ -120,8 +120,8 @@ export default {
       try {
         const res = await index.getProductList()
         this.phoneList = res
-      } catch (err) {
-        console.log(err)
+      } catch (error) {
+        console.log(error)
       }
     },
     goToCart() {
@@ -238,6 +238,7 @@ export default {
             border-top: 1px solid #e5e5e5;
             box-shadow: 0 7px 6px rgba(0, 0, 0, 0.11);
             transition: height 0.5s;
+            background-color: #ffffff;
             z-index: 10;
             .product {
               position: relative;
