@@ -59,7 +59,7 @@
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import ProductParam from '@/components/ProductParam'
+import ProductParam from '@/components/ProductParam.vue'
 import product from '@/api/product'
 export default {
   name: 'product',

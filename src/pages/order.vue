@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import OrderHeader from '@/components/OrderHeader'
-import NavFooter from '@/components/NavFooter'
+import OrderHeader from '@/components/OrderHeader.vue'
+import NavFooter from '@/components/NavFooter.vue'
 export default {
   name: 'order',
   components: { OrderHeader, NavFooter },

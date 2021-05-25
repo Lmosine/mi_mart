@@ -13,7 +13,8 @@ export default {
   name: 'App',
   components: {},
   mounted() {
-    this.getUser(), this.getCartCount()
+    this.getUser()
+    this.getCartCount()
   },
   methods: {
     ...mapActions({
@@ -22,7 +23,7 @@ export default {
     }),
     async getUser() {
       try {
-        const res = (await user.getUser()) || {}
+        const res = await user.getUser()
         this.saveUserName({ username: res.username })
       } catch (error) {
         console.log(error)
@@ -30,7 +31,7 @@ export default {
     },
     async getCartCount() {
       try {
-        const res = (await cart.getCartCount()) || 0
+        const res = await cart.getCartCount()
         this.saveCartCount({ cartCount: res })
       } catch (error) {
         console.log(error)

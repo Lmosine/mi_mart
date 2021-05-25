@@ -21,14 +21,14 @@
 
 
 <script>
-import { Menu, Dropdown, Icon } from 'ant-design-vue'
+// import { Menu, Dropdown, Icon } from 'ant-design-vue'
 export default {
   name: 'uiTest',
   components: {
-    aMenu: Menu,
-    aDropdown: Dropdown,
-    aIcon: Icon,
-    aMenuItem: Menu.Item
+    // aMenu: Menu,
+    // aDropdown: Dropdown,
+    // aIcon: Icon,
+    // aMenuItem: Menu.Item
   },
   mixins: [],
   props: {},

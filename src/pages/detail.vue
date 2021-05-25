@@ -75,8 +75,8 @@
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import ProductParam from './../components/ProductParam'
-import ServiceBar from './../components/ServiceBar'
+import ProductParam from '../components/ProductParam.vue'
+import ServiceBar from '../components/ServiceBar.vue'
 import product from '@/api/product'
 import cart from '@/api/cart'
 import { mapActions } from 'vuex'

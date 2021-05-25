@@ -11,7 +11,13 @@ export default defineConfig({
   base: '/',
   server: {
     port: 8888,
-    open: true
+    proxy: {
+      '/api': {
+        target: 'http://mall-pre.springboot.cn',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   },
   plugins: [createVuePlugin()]
 })

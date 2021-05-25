@@ -1,10 +1,9 @@
-const modules = {}
+import user from './user'
+import cart from './cart'
 
-const requireVuexModule = require.context('./', true, /^((?!index).)*\.js$/)
-
-requireVuexModule.keys().forEach(fileName => {
-  const moduleName = fileName.replace('./', '').replace('.js', '')
-  modules[moduleName] = requireVuexModule(fileName).default
-})
+const modules = {
+  user,
+  cart,
+}
 
 export default modules
