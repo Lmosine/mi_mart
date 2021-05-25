@@ -13,9 +13,12 @@
           <a href="javascript:;" v-if="!username" @click="goToLogin()">登录</a>
           <a href="javascript:;" v-if="username">我的订单</a>
           <a href="javascript:;" v-if="!username">注册</a>
-          <a class="my-cart" href="javascript:;" @click="goToCart()"
-            ><span class="icon-cart"></span>购物车</a
-          >
+          <a class="my-cart" href="javascript:;" @click="goToCart()" v-if="cartCount < 0">
+            <span class="icon-cart"></span>购物车
+          </a>
+          <a class="my-cart" href="javascript:;" @click="goToCart()" v-if="cartCount >= 0">
+            <span class="icon-cart"></span>购物车({{ cartCount }})
+          </a>
         </div>
       </div>
     </div>
@@ -81,6 +84,7 @@
 
 <script>
 import index from '../api/index'
+import { mapState } from 'vuex'
 export default {
   name: 'NavHeader',
   components: {},
@@ -88,7 +92,7 @@ export default {
   props: {},
   data() {
     return {
-      username: '',
+      // username: '',
       phoneList: [],
       redMiList: [
         { title: 'Redmi Note 9 系列', price: 999.0, img: '/imgs/nav-img/nav-2-1.webp' },
@@ -108,7 +112,18 @@ export default {
       ]
     }
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      userName: (state) => state.user.username,
+      cartcount: (state) => state.cart.cartCount
+    }),
+    username() {
+      return this.userName
+    },
+    cartCount() {
+      return this.cartcount
+    }
+  },
   watch: {},
   created() {},
   mounted() {
@@ -162,6 +177,7 @@ export default {
         background-color: #ff6600;
         text-align: center;
         color: #ffffff;
+        margin-right: 0;
         .icon-cart {
           @include bgImg(16px, 12px, '/imgs/icon-cart-checked.png');
           margin-right: 4px;

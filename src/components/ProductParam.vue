@@ -1,0 +1,85 @@
+<template>
+  <div class="nav-bar" :class="{ is_fixed: isFixed }">
+    <div class="container">
+      <div class="pro-titile">{{ title }}</div>
+      <div class="pro-param">
+        <a href="javascript::">概述</a><span>|</span> <a href="javascript::">参数</a><span>|</span>
+        <a href="javascript::">用户评价</a>
+        <slot name="buy"></slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ProductParam',
+  components: {},
+  mixins: [],
+  props: {
+    title: String
+  },
+  data() {
+    return {
+      isFixed: false
+    }
+  },
+  computed: {},
+  watch: {},
+  created() {},
+  mounted() {
+    this.addScroll()
+  },
+  beforeDestroy() {},
+  methods: {
+    addScroll() {
+      window.addEventListener('scroll', this.initHeight)
+    },
+    removeScroll() {
+      window.removeEventListener('scroll', this.initHeight, false)
+    },
+    initHeight() {
+      let scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      this.isFixed = scrollTop > 152 || false
+    }
+  },
+  destroyed() {
+    this.removeScroll()
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import '../assets/scss/base.scss';
+@import '../assets/scss/mixin.scss';
+@import '../assets/scss/config.scss';
+.nav-bar {
+  height: 70px;
+  line-height: 70px;
+  border-top: 1px solid $colorH;
+  background-color: #ffffff;
+  z-index: 12;
+  &.is_fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 5px 5px #cccccc;
+  }
+  .container {
+    @include flex();
+    .pro-titile {
+      font-size: $fontH;
+      color: $colorB;
+      font-weight: bold;
+    }
+    .pro-param {
+      font-size: $fontJ;
+      a {
+        color: $colorC;
+        margin: 0 10px;
+      }
+    }
+  }
+}
+</style>

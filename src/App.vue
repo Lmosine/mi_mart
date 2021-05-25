@@ -5,9 +5,38 @@
 </template>
 
 <script>
+import user from './api/user'
+import cart from './api/cart'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'App',
-  components: {}
+  components: {},
+  mounted() {
+    this.getUser(), this.getCartCount()
+  },
+  methods: {
+    ...mapActions({
+      saveUserName: 'user/saveUserName',
+      saveCartCount: 'cart/saveCartCount'
+    }),
+    async getUser() {
+      try {
+        const res = (await user.getUser()) || {}
+        this.saveUserName({ username: res.username })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getCartCount() {
+      try {
+        const res = (await cart.getCartCount()) || 0
+        this.saveCartCount({ cartCount: res })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 }
 </script>
 

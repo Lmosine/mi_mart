@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/home'
+import Login from '@/pages/login'
 import Index from '@/pages/index'
 import Product from '@/pages/product'
 import Detail from '@/pages/detail'
@@ -10,10 +11,12 @@ import OrderConfiirm from '@/pages/orderConfirm'
 import OrderList from '@/pages/orderList'
 import OrderPay from '@/pages/orderPay'
 import AliPay from '@/pages/alipay'
+import UiTest from '@/pages/uiTest'
+import Map from '@/pages/map'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -26,7 +29,10 @@ export default new Router({
         { path: '/detail/:id', name: 'detail', component: Detail }
       ]
     },
+    { path: '/login', name: 'login', component: Login },
     { path: '/cart', name: 'cart', component: Cart },
+    { path: '/ui', name: 'uiTest', component: UiTest },
+    { path: '/map', name: 'Map', component: Map },
     {
       path: '/order',
       name: 'order',
@@ -40,3 +46,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

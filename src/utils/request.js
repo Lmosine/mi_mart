@@ -1,10 +1,10 @@
 import axios from 'axios'
 
 // mock开关
-const mock = false
-if (mock) {
-  require('../mock/api')
-}
+// const mock = false
+// if (mock) {
+//   require('../mock/api')
+// }
 
 const request = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -13,12 +13,16 @@ const request = axios.create({
 
 request.interceptors.response.use(response => {
   const res = response.data
+  const path = location.hash
   if (res.status === 0) {
     return res.data
   } else if (res.status === 10) {
-    window.location.href = '/#/login'
+    if (path != '#/index') {
+      window.location.href = '/#/login'
+    }
+    throw new Error()
   } else {
-    alert(res.msg)
+    throw new Error()
   }
 })
 

@@ -127,6 +127,8 @@ import Modal from '@/components/Modal'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import index from '../api/index'
+import cart from '../api/cart'
+import { mapActions } from 'vuex'
 export default {
   name: 'index',
   components: { ServiceBar, swiper, swiperSlide, Modal },
@@ -217,6 +219,9 @@ export default {
   },
   beforeDestroy() {},
   methods: {
+    ...mapActions({
+      saveCartCount: 'cart/saveCartCount'
+    }),
     goToProduct(id) {
       this.$router.push({ name: 'product', params: { id: id } })
     },
@@ -225,14 +230,20 @@ export default {
     },
     async getPhoneList() {
       try {
-        this.phoneList = await index.geyPhoneList()
+        this.phoneList = await index.getPhoneList()
       } catch (error) {
         console.log(error)
       }
     },
     async addCart(id) {
-      const res = await index.addCart(id)
-      this.showModal = res.showModal
+      try {
+        const { showModal, res } = await cart.addCart(id)
+        this.showModal = showModal
+        const cartCount = res.cartTotalQuantity || 0
+        this.saveCartCount({ cartCount: cartCount })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

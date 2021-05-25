@@ -10,7 +10,7 @@ export default {
     })
     return res.list
   },
-  async geyPhoneList() {
+  async getPhoneList() {
     const res = await request.get('/products', {
       params: {
         categoryId: '100012',
@@ -19,13 +19,5 @@ export default {
     })
     const phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)]
     return phoneList
-  },
-  async addCart(id) {
-    // await request.post('/carts', {
-    //   productId: id,
-    //   selected: true
-    // })
-    const showModal = true
-    return { showModal, id }
   }
 }
